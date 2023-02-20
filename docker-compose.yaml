@@ -12,7 +12,7 @@ services:
     container_name: rosetta-api
     image: ghcr.io/sergeyfilyanin/rosetta-api-rosetta-api:latest
     pull_policy: always
-    profiles: ["online"]
+    profiles: ["online-dev"]
     command: "yarn start"
     ports:
       - "8090:8080"
@@ -25,7 +25,7 @@ services:
       - "9933:9933"
       - "9944:9944"
     image: ghcr.io/gear-tech/node:latest
-    profiles: ["online"]
+    profiles: ["online-dev"]
     pull_policy: always
     container_name: gear-node
     command: >
