@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+
+  rosetta-api-offline:
+    container_name: rosetta-api-offline
+    image: ghcr.io/sergeyfilyanin/rosetta-api:latest
+#    command: {{ need to write in }}
+    profiles: ["offline"]
+
+
+  rosetta-api-online:
+    container_name: rosetta-api
+    image: ghcr.io/sergeyfilyanin/rosetta-api-rosetta-api:latest
+    pull_policy: always
+    profiles: ["online"]
+    command: "yarn start"
+    ports:
+      - "8090:8080"
+    depends_on:
+      - gear-dev
+
+  gear-dev:
+    user: root
+    ports:
+      - "9933:9933"
+      - "9944:9944"
+    image: ghcr.io/gear-tech/node:latest
+    profiles: ["online"]
+    pull_policy: always
+    container_name: gear-node
+    command: >
+      gear --base-path /gear/ --dev --alice --prometheus-external  --unsafe-ws-external --unsafe-rpc-external --rpc-methods Unsafe --rpc-cors all --name=gear-dev
