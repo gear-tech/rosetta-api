@@ -1,10 +1,13 @@
 FROM node:18
+MAINTAINER GEAR
 
 WORKDIR /usr/src
 
-COPY package.json .
-COPY yarn.lock .
-COPY .yarnrc.yml .
+COPY package.json    \
+     yarn.lock       \
+     .yarnrc.yml     \
+     ./
+
 COPY .yarn .yarn
 COPY client client
 COPY server server
